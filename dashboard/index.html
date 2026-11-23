@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Launch Radar — protocols that record no token, ranked by implied launch value</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <div>
+    <h1>Token Launch Radar</h1>
+    <p class="sub">Every protocol in the snapshot that <strong>records no token</strong>, ranked by what a token launch could be worth. Snapshot <span id="asOf">—</span> · watchlist floor <span id="floor">—</span> · <span id="count">—</span> protocols ranked.</p>
+  </div>
+  <div class="legend" id="legend"></div>
+</header>
+
+<section class="model" id="modelBox">
+  <h2>How the value is modelled</h2>
+  <p id="modelText"></p>
+  <p class="fine">“Records no token” means the snapshot carries no CoinGecko id and no ticker for the protocol. It is a statement about the record, never a claim that the protocol has no token. Wrapped, staked and exchange products are discounted hard: their TVL is somebody else's asset, not value a new token could capture.</p>
+</section>
+
+<section class="controls">
+  <label>Search <input id="q" type="search" placeholder="protocol name or slug…" autocomplete="off"></label>
+  <label>Category <select id="cat"><option value="">All categories</option></select></label>
+  <label>Chain <select id="chain"><option value="">All chains</option></select></label>
+  <label class="check"><input id="watchOnly" type="checkbox"> Watchlist only</label>
+  <span class="showing" id="showing"></span>
+</section>
+
+<main class="layout">
+  <div class="tableWrap">
+    <table id="board">
+      <thead>
+        <tr>
+          <th data-sort="rank" class="num sorted">Rank</th>
+          <th data-sort="name">Protocol</th>
+          <th data-sort="implied_value_usd" class="num">Implied value</th>
+          <th data-sort="tvl_usd" class="num">TVL</th>
+          <th data-sort="change_7d" class="num">7d change</th>
+          <th data-sort="age_days" class="num">Age</th>
+          <th data-sort="category">Category</th>
+          <th>Chains</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <p class="empty" id="empty" hidden>No protocol matches these filters.</p>
+  </div>
+
+  <aside class="detail" id="detail" aria-live="polite">
+    <p class="hint">Click a row to see a protocol's detail and farm plan.</p>
+  </aside>
+</main>
+
+<footer>
+  <p>Implied values are this radar's own claim, computed from the snapshot's TVL, 7-day change, listing age, category and chain count. They are not a prediction that a token will be issued, or when.</p>
+</footer>
+
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
