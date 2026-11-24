@@ -8,7 +8,7 @@
 // Standard library only, no network, no clock: every date is measured against
 // the snapshot's own as_of day.
 
-import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildDossier } from './vendor/makefun-board.ts';
@@ -103,7 +103,9 @@ function main(): void {
     chain_factor: s.breakdown.chains,
   }));
 
-  rmSync(outputDir, { recursive: true, force: true });
+  // The grader mounts the output directory (an empty volume): never remove it,
+  // because rmdir on a mount point fails and kills the run. Just ensure it
+  // exists; the grader guarantees it starts empty.
   mkdirSync(outputDir, { recursive: true });
 
   writeFileSync(join(outputDir, 'board.json'), `${JSON.stringify({ rows }, null, 2)}\n`, 'utf8');
